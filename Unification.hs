@@ -38,6 +38,7 @@ substConstraints = undefined
 occursIn :: String -> Type -> Bool
 occursIn name (TVar s) = name == s
 occursIn name (TFun t1 t2) = (occursIn name t1) || (occursIn name t2)
+occursIn name (TPair t1 t2) = (occursIn name t1) || (occursIn name t2)
 occursIn _ _ = False
 
 unifyOne :: Constraint -> Maybe Subst
@@ -46,6 +47,7 @@ unifyOne (TBool, TBool) = Just []
 unifyOne (TVar x, z) = if not (occursIn x z) then Just [(x, z)] else Nothing
 unifyOne (z, TVar x) = if not (occursIn x z) then Just [(x, z)] else Nothing
 unifyOne (TFun a b, TFun x y) = unify [(a, x), (b, y)]
+unifyOne (TPair a b, TPair x y) = unify [(a, x), (b, y)]
 unifyOne _ = Nothing
 
 -- Given a list of constraints, generate the _most general unifier_ for the constraints if it exists
