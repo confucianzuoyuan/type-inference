@@ -1,0 +1,6 @@
+Var "x1"
+Plus (CInt 1) (CInt 2)
+ITE (CBool True) (CInt 1) (CInt 2)
+Abs "x" (Var "x")
+App (Abs "x" (Var "x")) (CInt 1)
+LetIn "x" (CInt 1) (Var "x")
